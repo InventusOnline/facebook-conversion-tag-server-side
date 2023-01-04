@@ -1,4 +1,4 @@
 homepage: "https://inventus.online"
 versions:
-  - sha: 123abs
+  - sha: 5b7ec13f924ce34ce12d421df7fc99ae542e910a
     changeNotes: Initial release of Facebook Conversion Tag
