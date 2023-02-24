@@ -462,11 +462,7 @@ ___TEMPLATE_PARAMETERS___
         "simpleValueType": true,
         "help": "Add the monitor URL here. This monitor will keep track of failed HTTP requests to the Facebook Conversion API and will automatically retry these request.",
         "valueHint": "https://domain.com/endpoint",
-        "valueValidators": [
-          {
-            "type": "NON_EMPTY"
-          }
-        ]
+        "valueValidators": []
       }
     ]
   }
@@ -1062,9 +1058,9 @@ function sendErrorLog(data) {
     sendHttpRequest(
         errorApiURL,
         (code, headers, body) => {
-            if (code >= 200 && code < 300) {
+            if ((code >= 200 && code < 300) && isLoggingEnabled) {
                 logToConsole('Error successfully posted to Monitoring platform');
-            } else {
+            } else if (isLoggingEnabled) {
                 logToConsole('Monitor platform is down or request is not allowed. HTTP status: ' + code);
             }
         },

@@ -585,9 +585,9 @@ function sendErrorLog(data) {
     sendHttpRequest(
         errorApiURL,
         (code, headers, body) => {
-            if (code >= 200 && code < 300) {
+            if ((code >= 200 && code < 300) && isLoggingEnabled) {
                 logToConsole('Error successfully posted to Monitoring platform');
-            } else {
+            } else if (isLoggingEnabled) {
                 logToConsole('Monitor platform is down or request is not allowed. HTTP status: ' + code);
             }
         },
