@@ -1,7 +1,12 @@
 homepage: "https://inventus.online"
 documentation: "https://github.com/InventusOnline/facebook-conversion-tag-server-side/blob/main/README.md"
 versions:
-  - sha: aae980852083c9ae3ee92e6881b2ef3f15bc392d
+  - sha: 7eaba10a5ed99194007bf6f7210fe930de02e688
     changeNotes: Minor fixes.
+      Only log Error monitor requests if constant isLoggingEnabled is set to true
+      Change displayName for Community Template Gallery
+      Add gitignore
+      Improve help text
+      Updated README.md
   - sha: 5b7ec13f924ce34ce12d421df7fc99ae542e910a
     changeNotes: Initial release of Facebook Conversion Tag
