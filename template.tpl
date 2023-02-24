@@ -13,7 +13,7 @@ ___INFO___
   "id": "cvt_temp_public_id",
   "version": 1,
   "securityGroups": [],
-  "displayName": "Inventus - Facebook Conversion API",
+  "displayName": "Facebook Conversion API by Inventus Online",
   "categories": [
     "ADVERTISING",
     "ANALYTICS",
@@ -460,7 +460,7 @@ ___TEMPLATE_PARAMETERS___
         "name": "monitorUrl",
         "displayName": "Monitor URL",
         "simpleValueType": true,
-        "help": "Add the monitor URL here. This monitor will keep track of failed HTTP requests to the Facebook Conversion API and will automatically retry these request.",
+        "help": "Add the monitor URL here. This monitor will keep track of failed HTTP requests to the Facebook Conversion API and will automatically retry these request at a later moment. (Not required)",
         "valueHint": "https://domain.com/endpoint",
         "valueValidators": []
       }
