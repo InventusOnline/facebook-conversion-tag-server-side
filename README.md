@@ -12,8 +12,8 @@ This tag sends the request (POST) as a stringified JSON object containing the fo
 1. requestHeaders
 2. statusCode
 3. payload
-4. customer_domain
-5. endpoint_url
+4. customerDomain
+5. endpointUrl
 6. initialResponse
 
 #### requestHeaders
@@ -25,10 +25,10 @@ The status code of the unsuccessful request.
 #### payload
 The data of the unsuccessful request.
 
-#### customer_domain
+#### customerDomain
 Domain of GTM Server Side Tagging container.
 
-#### endpoint_url
+#### endpointUrl
 The endpoint URL of the unsuccessful request.
 
 #### initialResponse
