@@ -17,15 +17,11 @@ const getRequestHeader = require('getRequestHeader');
 const getType = require('getType');
 const makeString = require('makeString');
 const makeNumber = require('makeNumber');
-
 const isLoggingEnabled = determinateIsLoggingEnabled();
 const traceId = isLoggingEnabled ? getRequestHeader('trace-id') : undefined;
-
 const eventData = getAllEventData();
 const url = eventData.page_location || getRequestHeader('referer');
-const subDomainIndex = url
-    ? computeEffectiveTldPlusOne(url).split('.').length - 1
-    : 1;
+const subDomainIndex = url ? computeEffectiveTldPlusOne(url).split('.').length - 1 : 1;
 
 if (url && url.lastIndexOf('https://gtm-msr.appspot.com/', 0) === 0) {
     return data.gtmOnSuccess();
@@ -82,9 +78,7 @@ const postBody = {
 };
 
 if (eventData.test_event_code || data.testId) {
-    postBody.test_event_code = eventData.test_event_code
-        ? eventData.test_event_code
-        : data.testId;
+    postBody.test_event_code = eventData.test_event_code ? eventData.test_event_code : data.testId;
 }
 
 if (isLoggingEnabled) {
@@ -151,14 +145,14 @@ sendHttpRequest(
             data.gtmOnSuccess();
         } else {
 
-            if (errorApiURL !== null){
+            if (errorApiURL !== null) {
                 const postData = {
-                    'requestHeaders': requestHeaders,
-                    'statusCode': statusCode,
-                    'payload': postBody,
-                    'customer_domain': getRequestHeader('host'),
-                    'endpoint_url': postUrl,
-                    'initialResponse': JSON.parse(body)
+                    requestHeaders: requestHeaders,
+                    statusCode: statusCode,
+                    payload: postBody,
+                    customerDomain: getRequestHeader('host'),
+                    endpointUrl: postUrl,
+                    initialResponse: JSON.parse(body),
                 };
                 sendErrorLog(postData);
             }
@@ -209,9 +203,7 @@ function getEventName(data) {
         return gaToFacebookEventName[eventName];
     }
 
-    return data.eventName === 'standard'
-        ? data.eventNameStandard
-        : data.eventNameCustom;
+    return data.eventName === 'standard' ? data.eventNameStandard : data.eventNameCustom;
 }
 
 function mapEvent(eventData, data) {
@@ -387,9 +379,7 @@ function addEcommerceData(eventData, mappedData) {
                     eventData.items[0].item_category;
 
             if (eventData.items[0].price) {
-                mappedData.custom_data.value = eventData.items[0].quantity
-                    ? eventData.items[0].quantity * eventData.items[0].price
-                    : eventData.items[0].price;
+                mappedData.custom_data.value = eventData.items[0].quantity ? eventData.items[0].quantity * eventData.items[0].price : eventData.items[0].price;
             }
         }
 
@@ -404,9 +394,7 @@ function addEcommerceData(eventData, mappedData) {
 
             if (d.price) {
                 content.item_price = makeNumber(d.price);
-                valueFromItems += d.quantity
-                    ? d.quantity * content.item_price
-                    : content.item_price;
+                valueFromItems += d.quantity ? d.quantity * content.item_price : content.item_price;
             }
 
             mappedData.custom_data.contents.push(content);
@@ -578,22 +566,34 @@ function determinateIsLoggingEnabled() {
     return data.logType === 'always';
 }
 
+/**
+ * Sends error data to the monitoring platform.
+ * @param {Object} data - The error data to be sent.
+ */
 function sendErrorLog(data) {
-    if (!data) return;
-    if (!errorApiURL) return;
+    if (!data) {
+        return;
+    }
+
+    if (!errorApiURL) {
+        return;
+    }
 
     sendHttpRequest(
         errorApiURL,
         (code, headers, body) => {
-            if ((code >= 200 && code < 300) && isLoggingEnabled) {
-                logToConsole('Error successfully posted to Monitoring platform');
+            if (code >= 200 && code < 300 && isLoggingEnabled) {
+                logToConsole('Error successfully posted to monitoring platform.');
             } else if (isLoggingEnabled) {
                 logToConsole('Monitor platform is down or request is not allowed. HTTP status: ' + code);
             }
         },
-        {headers: {'content-type': 'application/json'}, method: 'POST'},
+        {
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'POST'
+        },
         JSON.stringify(data)
     );
-
 }
-
