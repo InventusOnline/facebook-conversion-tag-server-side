@@ -1,6 +1,8 @@
 homepage: "https://inventus.online"
 documentation: "https://github.com/InventusOnline/facebook-conversion-tag-server-side/blob/main/README.md"
 versions:
+  - sha: 675be9f92dd0f166c6ccc9db365225b3cb266af0
+    changeNotes: Changes to comply with the Template style guide
   - sha: 7eaba10a5ed99194007bf6f7210fe930de02e688
     changeNotes: Minor fixes.
       Only log Error monitor requests if constant isLoggingEnabled is set to true
